@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My ToDo List</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <div id="todo">
+      <h2>To-do</h2>
+      <form class="todo__header" id="todo-form">
+        <label for="todo__input" class="todo__label">
+          <span class="input__title">Add an item</span>
+          <input
+            type="text"
+            id="todo__input"
+            class="todo__input-field"
+            placeholder="Add a To-do item"
+            required />
+        </label>
+        <input type="submit" value="Add Item" class="todo__btn" />
+      </form>
+      <ul class="todo__body" id="todo__not-completed"></ul>
+
+      <ul class="todo__body" id="todo__completed"></ul>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

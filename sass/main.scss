@@ -1,0 +1,208 @@
+@use './components' as c;
+@use './variables' as v;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  font-family: "PP Mori", sans-serif;
+  font-size: 1.125rem;
+  height: 100%;
+  width: 100%;
+  background-color: v.$secondary-color;
+  color: v.$accent-color;
+  display: grid;
+  place-items: center;
+}
+
+img, svg {
+  max-width: 100%;
+
+}
+
+
+#todo {
+  position: relative;
+  margin-block-start: 3rem;
+  margin-inline: 16px;
+  width: min(24rem, 100%);
+
+  h2 {
+    text-align: center;
+    margin-block-end: 12px;
+    font-weight: 700;
+  }
+
+.todo__header,
+.todo__body {
+  background: v.$secondary-color;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid v.$white-low;
+  border-radius: 8px;
+}
+
+
+.todo__body {
+  border: none;
+  padding: 0;
+  margin-top: 24px;
+  list-style: none;
+}
+
+ .todo__item {
+    @extend .todo__item;
+    background-color: v.$white-low;
+    overflow: hidden;
+
+    .flex-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+  }
+
+.todo__label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .input__title {
+    display: inline-flex;
+    font-size: 14px;
+    border-radius: 4px;
+    
+  }
+}
+
+.todo__input-field,
+.todo__btn {
+  height: 32px;
+  padding-inline: 8px;
+}
+
+.todo__input-field {
+  background-color: transparent;
+    color: v.$white-color;
+    border: 1px solid v.$white-low;
+    outline: none;
+
+    &:active,
+    &:target,
+    &:focus {
+      border: 1px solid v.$primary-color;
+    }
+}
+
+.todo__btn {
+  background-color: v.$primary-color;
+  color: v.$secondary-color;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.item__title {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.4;
+
+  .item__title-top {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 8px;
+  }
+
+  #item__check {
+    appearance: none;
+    display: inline-block;
+    background-color: transparent;
+    width: 12px;
+    height: 12px;
+    border-radius: 100vw;
+    border: 1px solid v.$white-transparent-color;
+    margin-top: 2px;
+
+    &:checked {
+      background-color: v.$primary-color;
+
+    }
+
+    &:checked + .item__heading {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.item__btn {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  button {
+    background-color: v.$white-low;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+
+
+    img {
+      margin: 4px;
+      width: 14px;
+    }
+  }
+}
+}
+
+
+.item__edit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 0;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+  margin-block-start: 0;
+  transition: height 250ms ease, grid-template-rows 250ms ease;
+
+  .item__edit > * {
+    overflow: hidden;
+  }
+
+  .todo__input {
+    flex: 1;
+    background-color: transparent;
+    color: v.$white-color;
+    border: 1px solid v.$white-low;
+    outline: none;
+
+    &:active,
+    &:target,
+    &:focus {
+      border: 1px solid v.$primary-color;
+    }
+  }
+
+}
+
+.item__title:has(.edit-btn.active) + .item__edit{
+  margin-block-start: 10px;
+  grid-template-rows: 1fr;
+}

@@ -1,0 +1,183 @@
+.todo__item, #todo .todo__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 10px;
+}
+.todo__item .item__title, #todo .todo__item .item__title {
+  display: flex;
+  align-items: end;
+  font-size: 14px;
+  gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  font-family: "PP Mori", sans-serif;
+  font-size: 1.125rem;
+  height: 100%;
+  width: 100%;
+  background-color: #0c0c0c;
+  color: #ecfff5;
+  display: grid;
+  place-items: center;
+}
+
+img, svg {
+  max-width: 100%;
+}
+
+#todo {
+  position: relative;
+  margin-block-start: 3rem;
+  margin-inline: 16px;
+  width: min(24rem, 100%);
+}
+#todo h2 {
+  text-align: center;
+  margin-block-end: 12px;
+  font-weight: 700;
+}
+#todo .todo__header,
+#todo .todo__body {
+  background: #0c0c0c;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.0926);
+  border-radius: 8px;
+}
+#todo .todo__body {
+  border: none;
+  padding: 0;
+  margin-top: 24px;
+  list-style: none;
+}
+#todo .todo__item {
+  background-color: rgba(255, 255, 255, 0.0926);
+  overflow: hidden;
+}
+#todo .todo__item .flex-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#todo .todo__label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#todo .todo__label .input__title {
+  display: inline-flex;
+  font-size: 14px;
+  border-radius: 4px;
+}
+#todo .todo__input-field,
+#todo .todo__btn {
+  height: 32px;
+  padding-inline: 8px;
+}
+#todo .todo__input-field {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.0926);
+  outline: none;
+}
+#todo .todo__input-field:active, #todo .todo__input-field:target, #todo .todo__input-field:focus {
+  border: 1px solid #00fc69;
+}
+#todo .todo__btn {
+  background-color: #00fc69;
+  color: #0c0c0c;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#todo .item__title {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.4;
+}
+#todo .item__title .item__title-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 8px;
+}
+#todo .item__title #item__check {
+  appearance: none;
+  display: inline-block;
+  background-color: transparent;
+  width: 12px;
+  height: 12px;
+  border-radius: 100vw;
+  border: 1px solid rgba(255, 255, 255, 0.267);
+  margin-top: 2px;
+}
+#todo .item__title #item__check:checked {
+  background-color: #00fc69;
+}
+#todo .item__title #item__check:checked + .item__heading {
+  text-decoration: line-through;
+}
+#todo .item__btn {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#todo .item__btn button {
+  background-color: rgba(255, 255, 255, 0.0926);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+#todo .item__btn button img {
+  margin: 4px;
+  width: 14px;
+}
+
+.item__edit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 0;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  overflow: hidden;
+  margin-block-start: 0;
+  transition: height 250ms ease, grid-template-rows 250ms ease;
+}
+.item__edit .item__edit > * {
+  overflow: hidden;
+}
+.item__edit .todo__input {
+  flex: 1;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.0926);
+  outline: none;
+}
+.item__edit .todo__input:active, .item__edit .todo__input:target, .item__edit .todo__input:focus {
+  border: 1px solid #00fc69;
+}
+
+.item__title:has(.edit-btn.active) + .item__edit {
+  margin-block-start: 10px;
+  grid-template-rows: 1fr;
+}
