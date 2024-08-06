@@ -44,6 +44,9 @@ img, svg {
   margin-block-end: 12px;
   font-weight: 700;
 }
+#todo .to-complete, #todo .completed {
+  margin-top: 32px;
+}
 #todo .todo__header,
 #todo .todo__body {
   background: #0c0c0c;

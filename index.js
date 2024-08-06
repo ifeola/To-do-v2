@@ -1,17 +1,8 @@
 const todoList = document.querySelector("#todo__not-completed");
+const todo = document.querySelector("#todo");
 const todoListItems = document.querySelector("#todo__not-completed").children;
-console.log(todoListItems);
+const todoComplete = document.querySelector("#todo__completed");
 const todoForm = document.querySelector("#todo-form");
-
-class TodoList {
-  constructor(title, index) {
-    this._title = title;
-    this._index = index;
-  }
-}
-
-let array = [];
-array.
 
 class UI {
   static addTask() {
@@ -67,8 +58,8 @@ class UI {
         toDos.forEach((todo, index) => {
           if (todo === heading.textContent) {
             toDos.splice(index, 1);
+            Store.editTodo(targetEdit, editInput.value);
             heading.textContent = editInput.value;
-            toDos.
           }
         });
         targetEdit.classList.remove("active");
@@ -107,6 +98,22 @@ class UI {
       Store.removeTodo(targetDelete);
     }
   }
+
+  static checkedItem(targetChecked) {
+    const checked = targetChecked.parentElement.parentElement.parentElement;
+    if (targetChecked.checked === true) {
+      todoComplete.appendChild(checked);
+      targetChecked.parentElement.nextElementSibling.querySelector(
+        ".edit"
+      ).style.display = "none";
+    }
+    if (targetChecked.checked === false) {
+      todoList.appendChild(checked);
+      targetChecked.parentElement.nextElementSibling.querySelector(
+        ".edit"
+      ).style.display = "flex";
+    }
+  }
 }
 
 class Store {
@@ -128,13 +135,30 @@ class Store {
 
   static removeTodo(targetDelete) {
     const toDos = Store.gettoDos();
-    const item = targetDelete.parentElement.parentElement
+
+    const listItem = targetDelete.parentElement.parentElement
+      .closest(".todo__item")
+      .querySelector(".item__heading").textContent;
+    toDos.forEach((item, index) => {
+      if (item === listItem) {
+        toDos.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem("toDos", JSON.stringify(toDos));
+  }
+
+  static editTodo(targetEdit, newTitle) {
+    const toDos = Store.gettoDos();
+
+    const item = targetEdit.parentElement.parentElement
       .closest(".todo__item")
       .querySelector(".item__heading").textContent;
 
     toDos.forEach((todo, index) => {
       if (todo === item) {
-        toDos.splice(index, 1);
+        toDos[index] = newTitle;
+        console.log(toDos[index], newTitle);
       }
     });
 
@@ -142,19 +166,24 @@ class Store {
   }
 }
 
-document.addEventListener("DOMContentLoaded", UI.addTask);
+// document.addEventListener("DOMContentLoaded", UI.addTask);
 
-todoList.addEventListener("click", (e) => {
+todo.addEventListener("click", (e) => {
   // Delete an item
   UI.deleteItem(e.target);
 
   // Edit an item
   UI.editItem(e.target);
+
+  // Checked Item
+  UI.checkedItem(e.target);
 });
 
 //Add item to to-do
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  UI.addTask();
+
   let formInput = todoForm.querySelector(".todo__input-field");
 
   // Add item to list

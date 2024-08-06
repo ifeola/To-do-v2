@@ -36,6 +36,11 @@ img, svg {
     font-weight: 700;
   }
 
+
+.to-complete, .completed {
+  margin-top: 32px
+}
+
 .todo__header,
 .todo__body {
   background: v.$secondary-color;
