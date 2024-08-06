@@ -36,8 +36,9 @@ img, svg {
 #todo {
   position: relative;
   margin-block-start: 3rem;
-  margin-inline: 16px;
-  width: min(24rem, 100%);
+  padding-inline: 16px;
+  width: 100%;
+  max-width: 24rem;
 }
 #todo h2 {
   text-align: center;
