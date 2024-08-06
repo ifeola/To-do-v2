@@ -37,6 +37,10 @@ img, svg {
     font-weight: 700;
   }
 
+  h3 {
+    font-size: 18px;
+  }
+
 
 .to-complete, .completed {
   margin-top: 32px
@@ -57,7 +61,7 @@ img, svg {
 .todo__body {
   border: none;
   padding: 0;
-  margin-top: 24px;
+  margin-top: 16px;
   list-style: none;
 }
 

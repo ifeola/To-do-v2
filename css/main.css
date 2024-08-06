@@ -45,6 +45,9 @@ img, svg {
   margin-block-end: 12px;
   font-weight: 700;
 }
+#todo h3 {
+  font-size: 18px;
+}
 #todo .to-complete, #todo .completed {
   margin-top: 32px;
 }
@@ -61,7 +64,7 @@ img, svg {
 #todo .todo__body {
   border: none;
   padding: 0;
-  margin-top: 24px;
+  margin-top: 16px;
   list-style: none;
 }
 #todo .todo__item {

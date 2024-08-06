@@ -4,13 +4,13 @@ const todoListItems = document.querySelector("#todo__not-completed").children;
 const todoComplete = document.querySelector("#todo__completed");
 const todoForm = document.querySelector("#todo-form");
 
-class UI {
-  static addTask() {
-    const tasks = Store.gettoDos();
+const tasks = [];
 
-    tasks.forEach((task) => {
-      UI.addItem(task);
-    });
+class UI {
+  static addTask(todoItem) {
+    UI.addItem(todoItem);
+    tasks.push(todoItem);
+    console.log(tasks);
   }
 
   static addItem(item) {
@@ -51,14 +51,17 @@ class UI {
 
       editInput.value = heading.textContent;
       targetEdit.classList.add("active");
-      let toDos = Store.gettoDos();
+
       editForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        toDos.forEach((todo, index) => {
-          if (todo === heading.textContent) {
-            toDos.splice(index, 1);
-            Store.editTodo(targetEdit, editInput.value);
+        tasks.forEach((task, index) => {
+          if (task === heading.textContent) {
+            let taskIndex = index;
+            tasks.splice(index, 1);
+            tasks[taskIndex] = editInput.value;
+            // Store.editTodo(targetEdit, editInput.value);
+
             heading.textContent = editInput.value;
           }
         });
@@ -67,26 +70,6 @@ class UI {
     } else {
       targetEdit.classList.remove("active");
     }
-
-    // const inputOverlay = document.querySelector(".edit-overlay");
-    // let inputValue = inputOverlay.querySelector("#edit");
-    // let input = "";
-    // if (targetEdit.classList.contains("edit-btn")) {
-    //   let listItem = targetEdit.parentElement.parentElement.parentElement;
-    //   listItem.classList.add("active");
-    //   input = listItem.querySelector(".item__heading").textContent;
-    //   inputValue.value = input;
-
-    //   inputOverlay.addEventListener("submit", (e) => {
-    //     e.preventDefault();
-
-    //     input = inputValue.value;
-    //     listItem.querySelector(".item__heading").textContent = input;
-    //     listItem.classList.remove("active");
-    //   });
-    // } else {
-    //   listItem.classList.remove("active");
-    // }
   }
 
   static deleteItem(targetDelete) {
@@ -94,8 +77,18 @@ class UI {
       targetDelete.classList.contains("delete-btn") ||
       targetDelete.classList.contains("delete")
     ) {
+      const targetHeading =
+        targetDelete.parentElement.parentElement.previousElementSibling.querySelector(
+          ".item__heading"
+        ).textContent;
+      tasks.forEach((task, index) => {
+        if (targetHeading === task) {
+          tasks.splice(index, 1);
+        }
+      });
       targetDelete.parentElement.parentElement.closest(".todo__item").remove();
-      Store.removeTodo(targetDelete);
+      console.log(tasks);
+      // Store.removeTodo(targetDelete);
     }
   }
 
@@ -116,58 +109,6 @@ class UI {
   }
 }
 
-class Store {
-  static gettoDos() {
-    let toDos;
-    if (localStorage.getItem("toDos") === null) {
-      toDos = [];
-    } else {
-      toDos = JSON.parse(localStorage.getItem("toDos"));
-    }
-    return toDos;
-  }
-
-  static addtoDos(toDo) {
-    const toDos = Store.gettoDos();
-    toDos.push(toDo);
-    localStorage.setItem("toDos", JSON.stringify(toDos));
-  }
-
-  static removeTodo(targetDelete) {
-    const toDos = Store.gettoDos();
-
-    const listItem = targetDelete.parentElement.parentElement
-      .closest(".todo__item")
-      .querySelector(".item__heading").textContent;
-    toDos.forEach((item, index) => {
-      if (item === listItem) {
-        toDos.splice(index, 1);
-      }
-    });
-
-    localStorage.setItem("toDos", JSON.stringify(toDos));
-  }
-
-  static editTodo(targetEdit, newTitle) {
-    const toDos = Store.gettoDos();
-
-    const item = targetEdit.parentElement.parentElement
-      .closest(".todo__item")
-      .querySelector(".item__heading").textContent;
-
-    toDos.forEach((todo, index) => {
-      if (todo === item) {
-        toDos[index] = newTitle;
-        console.log(toDos[index], newTitle);
-      }
-    });
-
-    localStorage.setItem("toDos", JSON.stringify(toDos));
-  }
-}
-
-// document.addEventListener("DOMContentLoaded", UI.addTask);
-
 todo.addEventListener("click", (e) => {
   // Delete an item
   UI.deleteItem(e.target);
@@ -182,14 +123,104 @@ todo.addEventListener("click", (e) => {
 //Add item to to-do
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  UI.addTask();
 
   let formInput = todoForm.querySelector(".todo__input-field");
 
   // Add item to list
-  UI.addItem(formInput.value);
+  UI.addTask(formInput.value);
+  formInput.value = "";
 
   // Add item tp storage
-  Store.addtoDos(formInput.value);
-  formInput.value = "";
+  // Store.addtoDos(formInput.value);
 });
+
+// class Store {
+//   static gettoDos() {
+//     let toDos;
+//     if (localStorage.getItem("toDos") === null) {
+//       toDos = [];
+//     } else {
+//       toDos = JSON.parse(localStorage.getItem("toDos"));
+//     }
+//     return toDos;
+//   }
+
+//   static addtoDos(toDo) {
+//     const toDos = Store.gettoDos();
+//     toDos.push(toDo);
+//     localStorage.setItem("toDos", JSON.stringify(toDos));
+//   }
+
+//   static removeTodo(targetDelete) {
+//     const toDos = Store.gettoDos();
+
+//     const listItem = targetDelete.parentElement.parentElement
+//       .closest(".todo__item")
+//       .querySelector(".item__heading").textContent;
+//     toDos.forEach((item, index) => {
+//       if (item === listItem) {
+//         toDos.splice(index, 1);
+//       }
+//     });
+
+//     localStorage.setItem("toDos", JSON.stringify(toDos));
+//   }
+
+//   static editTodo(targetEdit, newTitle) {
+//     const toDos = Store.gettoDos();
+
+//     const item = targetEdit.parentElement.parentElement
+//       .closest(".todo__item")
+//       .querySelector(".item__heading").textContent;
+
+//     toDos.forEach((todo, index) => {
+//       if (todo === item) {
+//         toDos[index] = newTitle;
+//         console.log(toDos[index], newTitle);
+//       }
+//     });
+
+//     localStorage.setItem("toDos", JSON.stringify(toDos));
+//   }
+// }
+
+// document.addEventListener("DOMContentLoaded", UI.addTask);
+
+// const inputOverlay = document.querySelector(".edit-overlay");
+// let inputValue = inputOverlay.querySelector("#edit");
+// let input = "";
+// if (targetEdit.classList.contains("edit-btn")) {
+//   let listItem = targetEdit.parentElement.parentElement.parentElement;
+//   listItem.classList.add("active");
+//   input = listItem.querySelector(".item__heading").textContent;
+//   inputValue.value = input;
+
+//   inputOverlay.addEventListener("submit", (e) => {
+//     e.preventDefault();
+
+//     input = inputValue.value;
+//     listItem.querySelector(".item__heading").textContent = input;
+//     listItem.classList.remove("active");
+//   });
+// } else {
+//   listItem.classList.remove("active");
+
+// const inputOverlay = document.querySelector(".edit-overlay");
+// let inputValue = inputOverlay.querySelector("#edit");
+// let input = "";
+// if (targetEdit.classList.contains("edit-btn")) {
+//   let listItem = targetEdit.parentElement.parentElement.parentElement;
+//   listItem.classList.add("active");
+//   input = listItem.querySelector(".item__heading").textContent;
+//   inputValue.value = input;
+
+//   inputOverlay.addEventListener("submit", (e) => {
+//     e.preventDefault();
+
+//     input = inputValue.value;
+//     listItem.querySelector(".item__heading").textContent = input;
+//     listItem.classList.remove("active");
+//   });
+// } else {
+//   listItem.classList.remove("active");
+// }
