@@ -8,28 +8,32 @@
   </head>
   <body>
     <div id="todo">
-      <h2>To-do</h2>
-      <form class="todo__header" id="todo-form">
-        <label for="todo__input" class="todo__label">
-          <span class="input__title">Add an item</span>
-          <input
-            type="text"
-            id="todo__input"
-            class="todo__input-field"
-            placeholder="Add a To-do item"
-            required />
-        </label>
-        <input type="submit" value="Add Item" class="todo__btn" />
-      </form>
-      <div class="to-complete">
-        <h3>Tasks to complete</h3>
-        <ul class="todo__body" id="todo__not-completed"></ul>
-      </div>
+      <header>
+        <form class="todo__header" id="todo-form">
+          <h2>To-do</h2>
+          <label for="todo__input" class="todo__label">
+            <span class="input__title">Add an item</span>
+            <input
+              type="text"
+              id="todo__input"
+              class="todo__input-field"
+              placeholder="Add a To-do item"
+              required />
+          </label>
+          <input type="submit" value="Add Item" class="todo__btn" />
+        </form>
+      </header>
+      <section class="section">
+        <div class="to-complete">
+          <h3>Tasks to complete</h3>
+          <ul class="todo__body" id="todo__not-completed"></ul>
+        </div>
 
-      <div class="completed">
-        <h3>Completed Tasks</h3>
-        <ul class="todo__body" id="todo__completed"></ul>
-      </div>
+        <div class="completed">
+          <h3>Completed Tasks</h3>
+          <ul class="todo__body" id="todo__completed"></ul>
+        </div>
+      </section>
     </div>
     <script src="index.js"></script>
   </body>

@@ -35,10 +35,19 @@ img, svg {
 
 #todo {
   position: relative;
-  margin-block-start: 3rem;
   padding-inline: 16px;
   width: 100%;
   max-width: 24rem;
+}
+#todo header {
+  position: fixed;
+  background-color: #0c0c0c;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  max-width: 24rem;
+  padding-top: 10px;
 }
 #todo h2 {
   text-align: center;
@@ -48,8 +57,12 @@ img, svg {
 #todo h3 {
   font-size: 18px;
 }
+#todo .section {
+  margin-top: 220px;
+}
 #todo .to-complete, #todo .completed {
   margin-top: 32px;
+  overflow: auto;
 }
 #todo .todo__header,
 #todo .todo__body {
@@ -65,6 +78,7 @@ img, svg {
   border: none;
   padding: 0;
   margin-top: 16px;
+  overflow: auto;
   list-style: none;
 }
 #todo .todo__item {

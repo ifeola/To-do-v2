@@ -5,6 +5,7 @@ const todoComplete = document.querySelector("#todo__completed");
 const todoForm = document.querySelector("#todo-form");
 
 const tasks = [];
+let checkedTasks = [];
 
 class UI {
   static addTask(todoItem) {
@@ -93,18 +94,15 @@ class UI {
   }
 
   static checkedItem(targetChecked) {
-    const checked = targetChecked.parentElement.parentElement.parentElement;
     if (targetChecked.checked === true) {
-      todoComplete.appendChild(checked);
-      targetChecked.parentElement.nextElementSibling.querySelector(
-        ".edit"
-      ).style.display = "none";
+      const checkedEl = targetChecked.parentElement.parentElement.parentElement;
+      todoList.removeChild(checkedEl);
+      todoComplete.appendChild(checkedEl);
     }
-    if (targetChecked.checked === false) {
-      todoList.appendChild(checked);
-      targetChecked.parentElement.nextElementSibling.querySelector(
-        ".edit"
-      ).style.display = "flex";
+    if (targetChecked.checked !== true) {
+      const checkedEl = targetChecked.parentElement.parentElement.parentElement;
+      todoComplete.removeChild(checkedEl);
+      todoList.appendChild(checkedEl);
     }
   }
 }
