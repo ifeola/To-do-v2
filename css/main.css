@@ -48,6 +48,7 @@ img, svg {
   width: 100%;
   max-width: 24rem;
   padding-top: 10px;
+  padding-inline: 16px;
 }
 #todo h2 {
   text-align: center;
@@ -58,7 +59,7 @@ img, svg {
   font-size: 18px;
 }
 #todo .section {
-  margin-top: 220px;
+  margin-top: 260px;
 }
 #todo .to-complete, #todo .completed {
   margin-top: 32px;
@@ -102,8 +103,8 @@ img, svg {
 }
 #todo .todo__input-field,
 #todo .todo__btn {
-  height: 32px;
-  padding-inline: 8px;
+  height: 48px;
+  padding-inline: 16px;
 }
 #todo .todo__input-field {
   background-color: transparent;
@@ -193,6 +194,7 @@ img, svg {
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.0926);
   outline: none;
+  padding-inline: 4px;
 }
 .item__edit .todo__input:active, .item__edit .todo__input:target, .item__edit .todo__input:focus {
   border: 1px solid #00fc69;
